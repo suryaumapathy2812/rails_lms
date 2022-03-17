@@ -6,6 +6,7 @@
 import * as ActiveStorage from "@rails/activestorage"
 import Rails from "@rails/ujs"
 import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap/dist/css/bootstrap.css'
 import "channels"
 import Turbolinks from "turbolinks"
 import './../js/bootstrap_js_files'
