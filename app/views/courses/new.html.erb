@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="d-flex justify-content-end">
+    <%= link_to 'Back', courses_path, class:"btn btn-primary" %>
+  </div>
+  <h1>New Course</h1>
+  <section>
+    <%= render 'form', course: @course %>
+  </section>
+</div>

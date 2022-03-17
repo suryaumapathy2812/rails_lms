@@ -1,0 +1,120 @@
+<main>
+  <%= %>
+  <div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Profile</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="pills-security-tab" data-bs-toggle="pill" data-bs-target="#pills-security" type="button" role="tab" aria-controls="pills-security" aria-selected="true">Security</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <div class="row">
+          <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+              <div class="card-header">Profile Picture</div>
+              <div class="card-body text-center">
+                <!-- Profile picture image-->
+                <% if (current_user.profile_picture.nil?) %>
+                  <%= image_tag(current_user.profile_picture, alt:"profile_picture", class:"img-account-profile rounded-circle mb-2", style:"object-fit:cover; object-postion:center; width:300px; height: 300px") %>
+                <% else %>
+                  <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                <% end %>
+                <!-- Profile picture help block-->
+                <h1> <%= @user.full_name %> </h1>
+                <p >  <%= @user.email %> </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+              <div class="card-header">Account Details</div>
+              <div class="card-body">
+                <%= form_with(model: @user,  url: registration_path(:user), method: :put) do |form| %>
+                  <!-- Form Row-->
+                  <div class="row gx-3 mb-3">
+                    <!-- Form Group (first name)-->
+                    <div class="col-md-6">
+                      <%= form.label :first_name, class: "form-label"%>
+                      <%= form.text_field :first_name, class:"form-control" %>
+                    </div>
+                    <!-- Form Group (last name)-->
+                    <div class="col-md-6">
+                      <%= form.label :last_name, class: "form-label"%>
+                      <%= form.text_field :last_name, class:"form-control" %>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <%= form.label :profile_picture, class: "form-label"%>
+                    <%= form.file_field :profile_picture, class:"form-control" %>
+                  </div>
+                  <!-- Form Group (email address)-->
+                  <div class="mb-3">
+                    <%= form.label :email, class: "form-label"%>
+                    <%= form.email_field :email, class:"form-control" %>
+                  </div>
+                  <!-- Form Row-->
+                  <!-- Form Group (phone number)-->
+                  <div class="mb-3">
+                    <%= form.label :current_password, class: "form-label"%>
+                    <%= form.password_field :current_password, class:"form-control" %>
+                  </div>
+                  <!-- Save changes button-->
+                  <%= form.submit class: "btn btn-primary"%>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="pills-security" role="tabpanel" aria-labelledby="pills-security-tab">
+        <div class="row">
+          <div class="col-lg-8">
+            <!-- Change password card-->
+            <div class="card mb-4">
+              <div class="card-header">Change Password</div>
+              <div class="card-body">
+                <%= form_with(model: @user, url: registration_path(:user), method: 'put') do |form| %>
+                  <!-- Form Group (current password)-->
+                  <div class="mb-3">
+                    <%= form.label :password , class:"form-label" %> <i>(leave blank if you don't want to change it)</i>
+                    <%= form.password_field :password, autocomplete: "new-password", class:"form-control"%>
+                    <% if @minimum_password_length %>
+                      <br />
+                      <em><%= @minimum_password_length %> characters minimum</em>
+                    <% end %>
+                  </div>
+                  <!-- Form Group (new password)-->
+                  <div class="mb-3">
+                    <%= form.label :password_confirmation , class:"form-" %>
+                    <%= form.password_field :password_confirmation, autocomplete: "new-password", class:"form-control" %>
+                  </div>
+                  <!-- Form Group (confirm password)-->
+                  <div class="mb-3">
+                    <%= form.label :current_password, class:"form-label" %> <i>(we need your current password to confirm your changes)</i>
+                    <%= form.password_field :current_password, autocomplete: "current-password", class:"form-control" %>
+                  </div>
+
+                  <%= form.submit class:"btn btn-primary", value: "Update password" %>
+                <% end %>
+              </div>
+            </div>
+            <!-- Delete account card-->
+            <div class="card mb-4">
+              <div class="card-header">Delete Account</div>
+              <div class="card-body">
+                <p>Deleting your account is a permanent action and cannot be undone. If you are sure you want to delete your account, select the button below.</p>
+                <%= button_to "I understand, delete my account", registration_path(:user), data: { confirm: "Are you sure?" }, method: :delete , class:"btn btn-danger"%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

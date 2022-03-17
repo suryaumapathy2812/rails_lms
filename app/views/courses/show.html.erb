@@ -1,0 +1,86 @@
+<style>
+    .nav-link {
+        background: none !important;
+        color: var(--bs-gray) !important;
+        border-radius: 0 !important;
+    }
+
+    .nav-link.active {
+        border-color: var(--bs-blue) !important;
+        border-bottom: 2px solid var(--bs-blue);
+        color: var(--bs-blue) !important;
+    }
+</style>
+<% if (notice) %>
+  <div class="alert alert-success" role="alert" id="notice">
+    <%= notice %>
+  </div>
+<% end %>
+<% if (@course) %>
+  <section class="bg-light">
+    <div class="card bg-primary text-white rounded-0">
+      <div class="card-body mt-4 mb-5 py-5 col-lg-9 mx-auto">
+        <h1 class="card-title display-5 fw-normal">
+          <%= @course.name %>
+        </h1>
+        <p class="lead mb-4 fw-normal">
+          <%= @course.description %>
+        </p>
+        <div class="row">
+          <span> Author: <%= @course.user.email %> </span>
+        </div>
+<!--        <p class="card-text">-->
+<!--        </p>-->
+      </div>
+    </div>
+    <div class="col-9 py-5 mx-auto">
+      <div class="row">
+        <div class="col-lg-4 col-12">
+          <div class="card shadow-sm">
+            <%= image_tag(@course.banner, alt: "banner", class: "img-fluid p-2", style: "border-radius: 12px !important; object-fit: cover; object-position:center; height:200px;") %>
+            <div class="card-body">
+              <h5 class="card-title">  <%= @course.name %> </h5>
+              <p class="card-text">
+                <%= @course.description %>
+              </p>
+              <% if (current_user && current_user.is_admin) %>
+                <%= link_to "Edit Course", edit_course_path, id: @course, class: "d-block btn btn-primary" %>
+              <% else %>
+                <a href="#" class="d-block btn btn-primary"> Enroll Course </a>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8 col-12 bg-white rounded-3 shadow-sm p-2">
+          <ul class="nav nav-pills" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="modules-tab" data-bs-toggle="tab" data-bs-target="#modules" type="button" role="tab" aria-controls="modules" aria-selected="true">
+                <span>
+                  <i class="bi bi-journals me-1"></i> Modules
+                </span>
+              </button>
+            </li>
+          </ul>
+          <div class="tab-content py-3" id="myTabContent">
+            <div class="tab-pane fade show active" id="modules" role="tabpanel" aria-labelledby="modules-tab">
+              <div class="list-group">
+                <% @course.topics.each do |topic| %>
+                  <%= link_to topic.name, course_topic_path(@course, topic), class: "list-group-item list-group-item-action" %>
+                <% end %>
+
+                <% if (current_user && current_user.is_admin) %>
+                  <%= link_to new_course_topic_path(@course), class: "list-group-item list-group-item-action text-center text-primary" do %>
+                    <i class="bi bi-journal-plus me-2"></i> Create New Topic
+                  <% end %>
+                <% end %>
+
+              </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab"> Profile</div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> Contact</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>

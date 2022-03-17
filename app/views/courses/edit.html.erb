@@ -1,0 +1,10 @@
+<div class="container">
+<div class="d-flex justify-content-end">
+    <%= link_to 'Preview', @course, class:"btn btn-primary me-3" %>
+    <%= link_to 'Back', courses_path, class:"btn btn-primary" %>
+  </div>
+<h1>Editing Course</h1>
+  <section>
+    <%= render 'form', course: @course %>
+  </section>
+</div>

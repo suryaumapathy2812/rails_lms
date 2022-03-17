@@ -1,0 +1,41 @@
+<% if (notice) %>
+<div class="container">
+  <div class="alert alert-success" role="alert" id="notice">
+    <%= notice %>
+  </div>
+</div>
+<% end %>
+
+<% if (current_user && current_user.is_admin) %>
+  <div class="container d-flex justify-content-end mb-3">
+    <%= link_to 'New Course', new_course_path, class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div class="container mb-5">
+  <h1 class="mb-4" >Courses</h1>
+  <div class="row row-cols-1 row-cols-md-4 g-4 mb-4">
+    <% @courses.each do |course| %>
+      <div class="col">
+        <div class="card rounded-2">
+          <div class="card-body">
+            <h5 class="card-title"> <%= course.name %> </h5>
+            <p class="card-text">
+              <%= course.description %>
+            </p>
+            <% if !(current_user && current_user.is_admin) %>
+              <%= link_to "View", course, class:"btn btn-outline-primary" %>
+            <% end %>
+          </div>
+          <% if (current_user && current_user.is_admin) %>
+            <div class="card-footer">
+              <%= link_to "View", course, class:"btn btn-outline-primary" %>
+              <%= link_to "Edit", edit_course_path(course), class:"btn btn-primary" %>
+              <%= link_to "Destroy", course, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

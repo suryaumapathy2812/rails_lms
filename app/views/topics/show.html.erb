@@ -1,0 +1,51 @@
+<% if (notice) %>
+  <div class="alert alert-success" role="alert" id="notice">
+    <%= notice %>
+  </div>
+<% end %>
+
+<%= content_for(:topic_list) do %>
+
+  <div class="card shadow-sm mb-3">
+    <%= image_tag(@course.banner, alt: "banner", class: "img-fluid p-2", style: "border-radius: 12px !important; object-fit: cover; object-position:center; height:200px;") %>
+    <div class="card-body">
+      <h5 class="card-title">  <%= @course.name %> </h5>
+      <p class="card-text">
+        <%= @course.description %>
+      </p>
+    </div>
+  </div>
+
+  <div class="list-group">
+    <% @topics.each do |topic| %>
+      <%= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
+    <% end %>
+    <% if (current_user && current_user.is_admin) %>
+      <%= link_to new_course_topic_path(@course), class: "list-group-item list-group-item-action text-center text-primary" do %>
+        <i class="bi bi-journal-plus"></i> Create New Topic
+      <% end %>
+    <% end %>
+  </div>
+
+<% end %>
+
+
+<article class="p-3">
+
+  <div class="d-flex align-items-center mb-2">
+
+    <h1 class="display-3 mb-3">
+      <%= @topic.name %>
+    </h1>
+    <% if ( current_user && current_user.is_admin) %>
+      <%= link_to 'Edit', edit_course_topic_path(@course, @topic), class: "btn btn-warning me-2 ms-auto" %>
+      <%= link_to 'Back', course_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <section>
+  <%= markdown(@topic.description) %>
+  </section>
+
+
+</article>
