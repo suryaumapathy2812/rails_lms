@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.2/lib/codemirror.css">
+
 <%= form_with(model: [@course ,topic]) do |form| %>
   <% if topic.errors.any? %>
     <div id="error_explanation">
@@ -18,10 +20,26 @@
 
   <div class="mb-3">
     <%= form.label :description, class:"form-label"  %>
-    <%= form.text_area :description, class:"form-control", style:"height: 400px" %>
+    <%= form.text_area :description, class:"form-control codemirror-textarea", style:"height: 400px" %>
   </div>
 
   <div class="actions">
     <%= form.submit class:"btn btn-primary" %>
   </div>
 <% end %>
+
+<script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.2/lib/codemirror.min.js"></script>
+<script>
+  const text_area = document.querySelector(".codemirror-textarea");
+  console.log(text_area);
+  const editor = CodeMirror.fromTextArea(text_area, {
+        mode: {
+          name: "gfm",
+          tokenTypeOverrides: {
+            emoji: "emoji"
+          }
+        },
+        lineNumbers: true,
+        theme: "default"
+      });
+</script>
