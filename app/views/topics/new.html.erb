@@ -17,7 +17,9 @@
 
     <%#= @topics.to_a %>
     <% @topics.each do |top| %>
-      <%= link_to top.name, course_topic_path(@course, top), class: "list-group-item list-group-item-action" %>
+      <% if !(top.id.nil?) %>
+        <%= link_to top.name, course_topic_path(@course, top), class: "list-group-item list-group-item-action" %>
+      <% end %>
     <% end %>
     <% if (current_user && current_user.is_admin) %>
       <%= link_to new_course_topic_path(@course), class: "list-group-item list-group-item-action text-center text-primary" do %>

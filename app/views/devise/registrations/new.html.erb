@@ -1,31 +1,31 @@
 <style>
-  html,
-  body {
-    height: 100%;
-  }
+    html,
+    body {
+        height: 100%;
+    }
 
-  body {
-    display: flex;
-    align-items: center;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    background-color: #f5f5f5;
-  }
+    body {
+        display: flex;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+    }
 
-  .form-signin {
-    width: 100%;
-    max-width: 512px;
-    padding: 15px;
-    margin: auto;
-  }
+    .form-signin {
+        width: 100%;
+        max-width: 512px;
+        padding: 15px;
+        margin: auto;
+    }
 
-  .form-signin .checkbox {
-    font-weight: 400;
-  }
+    .form-signin .checkbox {
+        font-weight: 400;
+    }
 
-  .form-signin .form-floating:focus-within {
-    z-index: 2;
-  }
+    .form-signin .form-floating:focus-within {
+        z-index: 2;
+    }
 </style>
 <main class="form-signin">
   <div class="card">
@@ -35,56 +35,31 @@
         <%= render "devise/shared/error_messages", resource: resource %>
         <div class="row">
           <div class="col-md-6 col-12 mb-3">
-            <%= f.label :first_name , class:"form-label"%>
-            <%= f.text_field :first_name, autofocus: true , class:"form-control"%>
+            <%= f.label :first_name, class: "form-label" %>
+            <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
           </div>
           <div class="col-md-6 col-12 mb-3">
-            <%= f.label :last_name , class:"form-label"%>
-            <%= f.text_field :last_name, autofocus: true , class:"form-control"%>
+            <%= f.label :last_name, class: "form-label" %>
+            <%= f.text_field :last_name, autofocus: true, class: "form-control" %>
           </div>
         </div>
         <div class="mb-3">
-          <%= f.label :email , class:"form-label"%>
-          <%= f.email_field :email, autocomplete: "email", class:"form-control" %>
+          <%= f.label :email, class: "form-label" %>
+          <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
         </div>
         <div class="mb-3">
-          <%= f.label :password, class:"form-label" %>
-          <%= f.password_field :password, autocomplete: "new-password", class:"form-control"%>
+          <%= f.label :password, class: "form-label" %>
+          <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
         </div>
         <div class="mb-3">
-          <%= f.label :password_confirmation,class:"form-label" %>
-          <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control confirm_password" %>
+          <%= f.label :password_confirmation, class: "form-label" %>
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control confirm_password" %>
         </div>
         <div class="actions">
-          <%= f.submit "Sign up", class:"w-100 btn btn-lg btn-primary" %>
+          <%= f.submit "Sign up", class: "w-100 btn btn-lg btn-primary" %>
         </div>
       <% end %>
     </div>
   </div>
-</div>
-<%= render "devise/shared/links" %>
-<%
-=begin%>
-<main class="form-signin">
-  <form data-bitwarden-watching="1">
-    <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <div class="form-floating">
-      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-      <label for="floatingInput">Email address</label>
-    </div>
-    <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-      <label for="floatingPassword">Password</label>
-    </div>
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
-  </form>
+  </div>
 </main>
-<%
-=end%>
