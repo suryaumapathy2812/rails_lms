@@ -24,7 +24,7 @@
           <%= @course.name %>
         </h1>
         <p class="lead mb-4 fw-normal">
-          <%= @course.description %>
+          <%=h truncate(@course.description, :length => 150) %>
         </p>
         <div class="row">
           <span> Author: <%= @course.user.email %> </span>
