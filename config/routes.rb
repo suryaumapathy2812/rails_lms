@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :my_courses
+  post '/enroll_course', to: 'my_courses#user_enroll_course'
   resources :courses do
     resources :topics
   end

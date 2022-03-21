@@ -9,6 +9,7 @@ class CoursesController < ApplicationController
 
   # GET /courses/1 or /courses/1.json
   def show
+    user_enrolled_courses
   end
 
   # GET /courses/new
@@ -58,6 +59,7 @@ class CoursesController < ApplicationController
     end
   end
 
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_course
@@ -68,4 +70,10 @@ class CoursesController < ApplicationController
     def course_params
       params.require(:course).permit(:name, :description, :user_id, :banner)
     end
+
+  def user_enrolled_courses
+    puts MyCourse.all
+   @enrolled_courses = MyCourse.where(:course_id => @course.id)
+  end
+
 end

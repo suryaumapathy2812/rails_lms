@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, except: %i[]
   before_action :set_user, only: %i[ profile ]
 
 

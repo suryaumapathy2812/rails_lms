@@ -14,36 +14,42 @@
 
 <div class="container mb-5">
   <div class="d-flex mx-0 justify-content-between align-items-center">
-    <h1 class="mb-4">Courses</h1>
+    <h1 class="mb-4">Enrolled Courses</h1>
     <% if (current_user && current_user.is_student) %>
       <%= link_to "My Courses", my_courses_path, class: "btn btn-primary" %>
     <% end %>
   </div>
 
+
   <div class="row row-cols-1 row-cols-md-4 g-4 mb-4">
-    <% @courses.each do |course| %>
+
+    <% @my_courses.each do |course| %>
       <div class="col">
         <div class="card rounded-2">
           <div class="card-body">
-            <h5 class="card-title"> <%= course.name %> </h5>
+            <h5 class="card-title"> <%= course.course.name %> </h5>
             <p class="card-text">
-              <%= h truncate(course.description, :length => 130) %>
-
-              <%#= course.description %>
+              <%= h truncate(course.course.description, :length => 130) %>
             </p>
             <% if !(current_user && current_user.is_admin) %>
-              <%= link_to "View", course, class: "btn btn-outline-primary" %>
+              <%= link_to "View", "/courses/#{course.course.id}", class: "btn btn-outline-primary" %>
             <% end %>
           </div>
           <% if (current_user && current_user.is_admin) %>
             <div class="card-footer">
-              <%= link_to "View", course, class: "btn btn-outline-primary" %>
-              <%= link_to "Edit", edit_course_path(course), class: "btn btn-primary" %>
-              <%= link_to "Destroy", course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+              <%#= link_to "View", my_course, class: "btn btn-outline-primary" %>
+              <%#= link_to "Edit", edit_my_course_path(my_course), class: "btn btn-primary" %>
+              <%#= link_to "With draw", my_course, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
             </div>
           <% end %>
         </div>
       </div>
     <% end %>
+
   </div>
+
 </div>
+
+
+
+<%#= link_to 'New My Course', new_my_course_path %>
