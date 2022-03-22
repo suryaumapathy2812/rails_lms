@@ -15,11 +15,18 @@
 
   <div class="list-group">
 
-    <%#= @topics.to_a %>
-    <% @topics.each do |top| %>
-      <% if !(top.id.nil?) %>
-        <%= link_to top.name, course_topic_path(@course, top), class: "list-group-item list-group-item-action" %>
+    <% @topics.each do |topic| %>
+      <% if (current_user && current_user.is_admin) %>
+        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+          <p class="m-0"> <%= topic.name %> </p>
+          <%= link_to course_topic_path(@course, @topic),method: :post, class: "btn btn-danger" do %>
+            <i class="bi bi-trash"></i>
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
       <% end %>
+      <%#= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
     <% end %>
     <% if (current_user && current_user.is_admin) %>
       <%= link_to new_course_topic_path(@course), class: "list-group-item list-group-item-action text-center text-primary" do %>

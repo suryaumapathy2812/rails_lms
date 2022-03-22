@@ -18,6 +18,22 @@ class TopicsController < ApplicationController
   # GET /topics/1 or /topics/1.json
   def show
     puts "Show Method"
+    _topic_id = @topic.id
+
+    _first_topic_id = Topic.first.id
+    _last_topic_id =  Topic.last.id
+
+    if (_topic_id == _first_topic_id)
+      @next_topic = Topic.find(@topic.id + 1)
+      @prev_topic = NIL
+    elsif (_topic_id > _first_topic_id && _topic_id < _last_topic_id)
+      @next_topic = Topic.find(@topic.id + 1)
+      @prev_topic = Topic.find(@topic.id - 1)
+    elsif(_topic_id == _last_topic_id)
+      @next_topic = NIL
+      @prev_topic = Topic.find(@topic.id - 1)
+    end
+
   end
 
   # GET /topics/new

@@ -18,7 +18,17 @@
 
   <div class="list-group">
     <% @topics.each do |topic| %>
-      <%= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
+      <% if (current_user && current_user.is_admin) %>
+        <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+          <p class="m-0"> <%= topic.name %> </p>
+          <%= link_to course_topic_path(@course, @topic),method: :post, class: "btn btn-danger" do %>
+            <i class="bi bi-trash"></i>
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
+      <% end %>
+      <%#= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
     <% end %>
     <% if (current_user && current_user.is_admin) %>
       <%= link_to new_course_topic_path(@course), class: "list-group-item list-group-item-action text-center text-primary" do %>
@@ -37,15 +47,36 @@
     <h1 class="display-3 mb-3">
       <%= @topic.name %>
     </h1>
-    <% if ( current_user && current_user.is_admin) %>
+    <% if (current_user && current_user.is_admin) %>
       <%= link_to 'Edit', edit_course_topic_path(@course, @topic), class: "btn btn-warning me-2 ms-auto" %>
-      <%= link_to 'Back', course_path, class: "btn btn-primary" %>
+      <%= link_to 'Back', course_path(@course), class: "btn btn-primary" %>
     <% end %>
   </div>
 
   <section>
-  <%= markdown(@topic.description) %>
+    <%= markdown(@topic.description) %>
   </section>
 
+
+  <div class="d-flex justify-content-between mt-5">
+
+    <% if !(@prev_topic.nil?) %>
+      <%= link_to "Previous", course_topic_path(@course, @prev_topic), class: "btn btn-outline-dark p-3 w-25 border-2" %>
+    <% else %>
+      <button class="btn btn-outline-dark p-3 w-25" disabled> Previous</button>
+    <% end %>
+
+    <% if (@next_topic) %>
+      <%= link_to "Mark as Completed", course_topic_path(@course, @next_topic), class: "btn btn-outline-success flex-grow-1 mx-3 p-3 border-2" %>
+      <% else %>
+      <%= link_to "Mark as Completed", course_topic_path(@course, @topic), class: "btn btn-outline-success flex-grow-1 mx-3 p-3 border-2" %>
+    <% end %>
+
+    <% if !(@next_topic.nil?) %>
+      <%= link_to "Next", course_topic_path(@course, @next_topic), class: "btn btn-outline-dark p-3 w-25 border-2" %>
+    <% else %>
+      <button class="btn btn-outline-dark p-3 w-25" disabled> Next</button>
+    <% end %>
+  </div>
 
 </article>
