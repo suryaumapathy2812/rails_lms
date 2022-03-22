@@ -6,7 +6,7 @@ class MyCoursesController < ApplicationController
 
   # GET /my_courses or /my_courses.json
   def index
-    @my_courses = MyCourse.all
+    @my_courses = MyCourse.where(:user_id => current_user.id)
   end
 
   # GET /my_courses/1 or /my_courses/1.json
