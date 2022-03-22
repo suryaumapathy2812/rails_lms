@@ -1,31 +1,50 @@
-<h1>Editing Topic</h1>
+<article class="p-3">
 
-<%= content_for(:topic_list) do %>
 
-  <div class="card shadow-sm mb-3">
-    <%= image_tag(@course.banner, alt: "banner", class: "img-fluid p-2", style: "border-radius: 12px !important; object-fit: cover; object-position:center; height:200px;") %>
-    <div class="card-body">
-      <h5 class="card-title">  <%= @course.name %> </h5>
-      <p class="card-text">
-        <%= @course.description %>
-      </p>
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Editing Topic</h1>
+    <div>
+      <%= link_to 'Show', [@course, @topic], class: "btn btn-primary me-2" %>
+      <%= link_to 'Back', course_topic_path(@course, @topic), class: "btn btn-primary" %>
     </div>
   </div>
 
-  <div class="list-group">
-    <% @topics.each do |topic| %>
-      <%= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
-    <% end %>
-    <% if (current_user && current_user.is_admin) %>
-      <%= link_to new_course_topic_path(@course), class: "list-group-item list-group-item-action text-center text-primary" do %>
-        <i class="bi bi-journal-plus"></i> Create New Topic
+  <%= content_for(:topic_list) do %>
+
+    <div class="card shadow-sm mb-3">
+      <%= image_tag(@course.banner, alt: "banner", class: "img-fluid p-2", style: "border-radius: 12px !important; object-fit: cover; object-position:center; height:200px;") %>
+      <div class="card-body">
+        <h5 class="card-title">  <%= @course.name %> </h5>
+        <p class="card-text">
+          <%= @course.description %>
+        </p>
+      </div>
+    </div>
+
+    <div class="list-group">
+      <% @topics.each do |topic| %>
+        <% if (current_user && current_user.is_admin) %>
+          <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <p class="m-0"> <%= topic.name %> </p>
+            <%= link_to course_topic_path(@course, @topic),method: :post, class: "btn btn-danger" do %>
+              <i class="bi bi-trash"></i>
+            <% end %>
+          </div>
+        <% else %>
+          <%= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
+        <% end %>
+        <%#= link_to topic.name, course_topic_path(@course, topic.id), class: "list-group-item list-group-item-action" %>
       <% end %>
-    <% end %>
-  </div>
 
-<% end %>
+      <% if (current_user && current_user.is_admin) %>
+        <%= link_to new_course_topic_path(@course), class: "list-group-item list-group-item-action text-center text-primary" do %>
+          <i class="bi bi-journal-plus"></i> Create New Topic
+        <% end %>
+      <% end %>
+    </div>
 
-<%= render 'form', topic: @topic %>
+  <% end %>
 
-<%= link_to 'Show', [@course, @topic] %> |
-<%= link_to 'Back', course_path %>
+  <%= render 'form', topic: @topic %>
+
+</article>
